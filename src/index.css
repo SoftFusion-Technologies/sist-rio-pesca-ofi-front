@@ -1,0 +1,567 @@
+/* =========================================================
+   Río de Pesca - Global Styles / Brand Tokens
+   Benjamin Orellana - 2026-02-22 - Base visual global para proyecto React + Tailwind
+   ========================================================= */
+
+@import 'tailwindcss';
+
+/* Fuentes */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Raleway:wght@500;600;700;800&display=swap');
+
+@font-face {
+  font-family: "BigNoodle";
+  src: url('./fonts/big_noodle_titling.ttf') format('truetype'); 
+}
+
+@font-face {
+  font-family: "MessinaRegular";
+  src: url('./fonts/MessinaSans-Regular.ttf') format('truetype'); 
+}
+
+.font-bignoodle {
+  font-family: BigNoodle
+}
+
+.font-messina {
+  font-family: MessinaRegular;
+}
+
+:root {
+  /* =========================
+     TIPOGRAFÍA
+     ========================= */
+  --font-body:
+    'Poppins', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    sans-serif;
+  --font-heading: 'Raleway', 'Poppins', system-ui, sans-serif;
+
+  /* =========================
+     PALETA MARCA (extraída de logos)
+     ========================= */
+  --rp-navy-950: #091d33;
+  --rp-navy-900: #0e2440;
+  --rp-navy-800: #132d52;
+  --rp-blue-700: #1f5f96;
+  --rp-blue-600: #2f7fbe;
+  --rp-blue-500: #54a4ce;
+  --rp-blue-400: #79c4ea;
+  --rp-blue-300: #a7dff7;
+
+  --rp-green-700: #4f7f45;
+  --rp-green-600: #678850;
+  --rp-green-500: #7ea96a;
+
+  --rp-gold-500: #e0a020;
+  --rp-gold-400: #f0b63b;
+  --rp-sand-300: #d7c29b;
+
+  --rp-white: #ffffff;
+  --rp-slate-50: #f7fafc;
+  --rp-slate-100: #eef3f8;
+  --rp-slate-200: #d9e3ee;
+  --rp-slate-400: #93a4b6;
+  --rp-slate-600: #5d6f82;
+  --rp-slate-700: #445567;
+  --rp-slate-900: #0e1726;
+
+  /* =========================
+     TOKENS SEMÁNTICOS (NAVY DEFAULT)
+     ========================= */
+  --color-bg: #061425;
+  --color-bg-soft: #0a1d35;
+  --color-surface: rgba(14, 31, 54, 0.66);
+  --color-surface-strong: rgba(16, 36, 63, 0.9);
+  --color-border: rgba(121, 196, 234, 0.16);
+  --color-text: #ecf6ff;
+  --color-text-muted: #a7bfd6;
+
+  --color-primary: #d8ecff;
+  --color-primary-2: var(--rp-blue-400);
+  --color-accent: var(--rp-gold-400);
+  --color-success: #8dc27b;
+
+  --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.26);
+  --shadow-md: 0 18px 46px rgba(0, 0, 0, 0.34);
+  --shadow-lg: 0 28px 80px rgba(0, 0, 0, 0.46);
+
+  --radius-xs: 10px;
+  --radius-sm: 14px;
+  --radius-md: 18px;
+  --radius-lg: 24px;
+  --radius-xl: 28px;
+
+  --container-max: 1240px;
+  --transition-fast: 180ms ease;
+  --transition-base: 260ms ease;
+  --transition-slow: 420ms ease;
+}
+
+.dark {
+  --color-bg: #071426;
+  --color-bg-soft: #0b1d34;
+  --color-surface: rgba(16, 37, 66, 0.72);
+  --color-surface-strong: rgba(17, 38, 67, 0.92);
+  --color-border: rgba(167, 223, 247, 0.14);
+  --color-text: #ebf5ff;
+  --color-text-muted: #a8bfd6;
+
+  --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.28);
+  --shadow-md: 0 16px 44px rgba(0, 0, 0, 0.34);
+  --shadow-lg: 0 28px 80px rgba(0, 0, 0, 0.42);
+}
+
+/* =========================
+   RESET / BASE
+   ========================= */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  color: var(--color-text);
+  background:
+    radial-gradient(
+      1200px 700px at 8% -10%,
+      rgba(84, 164, 206, 0.22),
+      transparent 58%
+    ),
+    radial-gradient(
+      900px 520px at 100% 8%,
+      rgba(47, 127, 190, 0.18),
+      transparent 56%
+    ),
+    radial-gradient(
+      700px 440px at 50% 100%,
+      rgba(121, 196, 234, 0.1),
+      transparent 60%
+    ),
+    linear-gradient(180deg, #061425 0%, #081a2f 48%, #0a1d35 100%);
+  min-height: 100vh;
+}
+
+img,
+svg,
+video,
+canvas {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+/* =========================
+   SELECCIÓN / SCROLLBAR
+   ========================= */
+::selection {
+  background: rgba(84, 164, 206, 0.22);
+  color: var(--rp-navy-900);
+}
+
+.dark ::selection {
+  background: rgba(121, 196, 234, 0.22);
+  color: #ffffff;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(47, 127, 190, 0.45) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    180deg,
+    rgba(47, 127, 190, 0.7),
+    rgba(31, 95, 150, 0.7)
+  );
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(
+    180deg,
+    rgba(47, 127, 190, 0.9),
+    rgba(31, 95, 150, 0.9)
+  );
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+/* =========================
+   UTILIDADES REUTILIZABLES
+   (sin depender de config Tailwind)
+   ========================= */
+
+/* Contenedor central */
+.rp-container {
+  width: min(var(--container-max), calc(100% - 2rem));
+  margin-inline: auto;
+}
+
+@media (min-width: 768px) {
+  .rp-container {
+    width: min(var(--container-max), calc(100% - 3rem));
+  }
+}
+
+/* Títulos de sección */
+.rp-section-title {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  color: var(--color-primary);
+}
+
+.rp-section-subtitle {
+  color: var(--color-text-muted);
+  line-height: 1.6;
+}
+
+/* Badge con estilo marca */
+.rp-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.45rem 0.75rem;
+  border-radius: 999px;
+  background: linear-gradient(
+    180deg,
+    rgba(84, 164, 206, 0.14),
+    rgba(84, 164, 206, 0.08)
+  );
+  border: 1px solid rgba(47, 127, 190, 0.18);
+  color: var(--rp-blue-700);
+  font-size: 0.85rem;
+  font-weight: 600;
+  backdrop-filter: blur(8px);
+}
+
+/* Card glass premium */
+.rp-card {
+  background: linear-gradient(
+    180deg,
+    rgba(16, 36, 63, 0.74),
+    rgba(12, 28, 49, 0.68)
+  );
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  transition:
+    transform var(--transition-base),
+    box-shadow var(--transition-base),
+    border-color var(--transition-base),
+    background-color var(--transition-base);
+}
+
+.rp-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  border-color: rgba(121, 196, 234, 0.28);
+}
+.rp-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  border-color: rgba(47, 127, 190, 0.22);
+}
+
+/* Botón principal */
+.rp-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  padding: 0.75rem 1rem;
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    transform var(--transition-fast),
+    box-shadow var(--transition-fast),
+    background-color var(--transition-fast),
+    color var(--transition-fast),
+    border-color var(--transition-fast);
+}
+
+.rp-btn:active {
+  transform: translateY(1px) scale(0.995);
+}
+
+.rp-btn-primary {
+  color: white;
+  background: linear-gradient(135deg, var(--rp-blue-600), var(--rp-navy-900));
+  box-shadow: 0 10px 24px rgba(31, 95, 150, 0.28);
+}
+
+.rp-btn-primary:hover {
+  box-shadow: 0 14px 30px rgba(31, 95, 150, 0.34);
+  transform: translateY(-1px);
+}
+
+.rp-btn-outline {
+  color: var(--color-primary);
+  background: rgba(255, 255, 255, 0.52);
+  border-color: rgba(14, 36, 64, 0.12);
+}
+
+.dark .rp-btn-outline {
+  color: var(--color-text);
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.rp-btn-outline:hover {
+  border-color: rgba(47, 127, 190, 0.28);
+  background: rgba(84, 164, 206, 0.08);
+}
+
+/* CTA WhatsApp */
+.rp-btn-whatsapp {
+  color: white;
+  background: linear-gradient(135deg, #1db954, #25d366);
+  box-shadow: 0 10px 24px rgba(37, 211, 102, 0.28);
+}
+
+.rp-btn-whatsapp:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 14px 30px rgba(37, 211, 102, 0.34);
+}
+
+/* Texto gradiente marca */
+.rp-text-gradient {
+  background: linear-gradient(
+    135deg,
+    var(--rp-navy-900) 0%,
+    var(--rp-blue-600) 45%,
+    var(--rp-blue-500) 75%,
+    var(--rp-green-600) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Secciones */
+.rp-section {
+  position: relative;
+  padding-block: 4.5rem;
+}
+
+@media (min-width: 768px) {
+  .rp-section {
+    padding-block: 6rem;
+  }
+}
+
+/* Panel con brillo sutil */
+.rp-panel-glow {
+  position: relative;
+  isolation: isolate;
+}
+
+.rp-panel-glow::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  z-index: -1;
+  background:
+    radial-gradient(
+      60% 60% at 20% 0%,
+      rgba(121, 196, 234, 0.24),
+      transparent 70%
+    ),
+    radial-gradient(
+      40% 50% at 100% 0%,
+      rgba(224, 160, 32, 0.12),
+      transparent 70%
+    );
+  opacity: 0.9;
+}
+
+/* Fondo textura / burbujas muy sutiles para hero o secciones */
+.rp-water-dots {
+  position: relative;
+  overflow: hidden;
+}
+
+.rp-water-dots::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.18;
+  background-image:
+    radial-gradient(
+      circle at 10% 20%,
+      rgba(167, 223, 247, 0.8) 1px,
+      transparent 2px
+    ),
+    radial-gradient(
+      circle at 80% 30%,
+      rgba(167, 223, 247, 0.7) 1px,
+      transparent 2px
+    ),
+    radial-gradient(
+      circle at 60% 80%,
+      rgba(167, 223, 247, 0.65) 1px,
+      transparent 2px
+    ),
+    radial-gradient(
+      circle at 25% 70%,
+      rgba(167, 223, 247, 0.5) 1px,
+      transparent 2px
+    );
+  background-size:
+    180px 180px,
+    220px 220px,
+    260px 260px,
+    200px 200px;
+}
+
+/* =========================
+   ANIMACIONES (globales)
+   ========================= */
+@keyframes rpFloat {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes rpPulseGlow {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(84, 164, 206, 0.16);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(84, 164, 206, 0);
+  }
+}
+
+@keyframes rpShimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.rp-anim-float {
+  animation: rpFloat 4s ease-in-out infinite;
+}
+
+.rp-anim-pulse {
+  animation: rpPulseGlow 2.3s ease-in-out infinite;
+}
+
+/* Skeleton reusable */
+.rp-skeleton {
+  border-radius: 12px;
+  background: linear-gradient(
+    90deg,
+    rgba(148, 163, 184, 0.08) 0%,
+    rgba(148, 163, 184, 0.16) 40%,
+    rgba(148, 163, 184, 0.08) 80%
+  );
+  background-size: 200% 100%;
+  animation: rpShimmer 1.5s linear infinite;
+}
+
+/* Focus accesible */
+.rp-focus-ring:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 2px rgba(255, 255, 255, 0.85),
+    0 0 0 5px rgba(47, 127, 190, 0.35);
+}
+
+.dark .rp-focus-ring:focus-visible {
+  box-shadow:
+    0 0 0 2px rgba(7, 20, 38, 0.9),
+    0 0 0 5px rgba(121, 196, 234, 0.26);
+}
+
+body::before,
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+body::before {
+  background:
+    radial-gradient(
+      500px 300px at 12% 14%,
+      rgba(121, 196, 234, 0.08),
+      transparent 70%
+    ),
+    radial-gradient(
+      460px 280px at 88% 12%,
+      rgba(47, 127, 190, 0.08),
+      transparent 70%
+    );
+}
+
+body::after {
+  opacity: 0.03;
+
+  background-size: 28px 28px;
+}
+
+#root {
+  min-height: 100vh;
+  position: relative;
+}
+
+main,
+header,
+footer {
+  position: relative;
+  z-index: 1;
+}

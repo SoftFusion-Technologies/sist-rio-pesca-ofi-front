@@ -283,25 +283,34 @@ export default function Navbar() {
             ].join(' ')}
             style={{
               background: isCompact
-                ? 'linear-gradient(180deg, rgba(6,18,33,0.78), rgba(7,20,36,0.68))'
-                : 'linear-gradient(180deg, rgba(6,18,33,0.64), rgba(7,20,36,0.56))',
+                ? `
+        linear-gradient(180deg, rgba(7, 42, 84, 0.96), rgba(6, 31, 66, 0.92)),
+        radial-gradient(700px 180px at 15% 0%, rgba(121,196,234,0.20), transparent 60%)
+      `
+                : `
+        linear-gradient(180deg, rgba(6,18,33,0.46), rgba(7,20,36,0.32)),
+        radial-gradient(700px 180px at 15% 0%, rgba(121,196,234,0.10), transparent 60%)
+      `,
               borderColor: isCompact
-                ? 'rgba(255,255,255,0.10)'
+                ? 'rgba(121,196,234,0.24)'
                 : 'rgba(255,255,255,0.08)',
               boxShadow: isCompact
-                ? '0 18px 42px rgba(0,0,0,0.22), inset 0 1px 0 rgba(255,255,255,0.03)'
+                ? '0 18px 42px rgba(2,12,24,0.34), inset 0 1px 0 rgba(255,255,255,0.05)'
                 : '0 14px 34px rgba(0,0,0,0.16), inset 0 1px 0 rgba(255,255,255,0.02)',
               backdropFilter: 'blur(16px)',
-              WebkitBackdropFilter: 'blur(16px)'
+              WebkitBackdropFilter: 'blur(16px)',
+              transition:
+                'background 240ms ease, border-color 240ms ease, box-shadow 240ms ease'
             }}
           >
             {/* brillo superior */}
             <div
               aria-hidden="true"
-              className="pointer-events-none absolute inset-x-0 top-0 h-14"
+              className="pointer-events-none absolute inset-x-0 bottom-0 h-[2px] overflow-hidden"
               style={{
-                background:
-                  'linear-gradient(180deg, rgba(255,255,255,0.065), rgba(255,255,255,0))'
+                background: isCompact
+                  ? 'linear-gradient(90deg, rgba(121,196,234,0.10), rgba(121,196,234,0.22), rgba(121,196,234,0.10))'
+                  : 'linear-gradient(90deg, rgba(121,196,234,0.04), rgba(121,196,234,0.10), rgba(121,196,234,0.04))'
               }}
             />
 
@@ -335,9 +344,12 @@ export default function Navbar() {
               <motion.div
                 className="absolute left-[-20%] top-0 h-full w-[30%]"
                 style={{
-                  background:
-                    'linear-gradient(90deg, rgba(255,255,255,0), rgba(167,223,247,0.95), rgba(255,255,255,0))',
-                  boxShadow: '0 0 14px rgba(121,196,234,0.28)'
+                  background: isCompact
+                    ? 'linear-gradient(90deg, rgba(255,255,255,0), rgba(121,196,234,1), rgba(255,255,255,0))'
+                    : 'linear-gradient(90deg, rgba(255,255,255,0), rgba(167,223,247,0.95), rgba(255,255,255,0))',
+                  boxShadow: isCompact
+                    ? '0 0 16px rgba(121,196,234,0.34)'
+                    : '0 0 14px rgba(121,196,234,0.28)'
                 }}
                 animate={{ x: ['0%', '420%'] }}
                 transition={{
@@ -547,7 +559,7 @@ export default function Navbar() {
                   </motion.a>
 
                   {/* Social dock pequeño */}
-                  {socialItems.length > 0 && (
+                  {/* {socialItems.length > 0 && (
                     <div className="mt-1.5 flex items-center gap-1.5">
                       {socialItems.map((item) => {
                         const Icon = item.icon;
@@ -591,7 +603,7 @@ export default function Navbar() {
                           ''}
                       </span>
                     </div>
-                  )}
+                  )} */}
                 </div>
 
                 {/* Mobile WhatsApp quick */}

@@ -1,9 +1,11 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useEffect, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useLocation, useNavigate } from 'react-router-dom';
 import {
   FaArrowRight,
   FaCampground,
+  FaChevronLeft,
+  FaChevronRight,
   FaFacebookF,
   FaFish,
   FaInstagram,
@@ -68,9 +70,38 @@ const trustBadges = [
   'Respuesta por WhatsApp'
 ];
 
+/*
+ * Benjamin Orellana - 2026-03-08 - Carrusel de fondo del hero.
+ * Reemplazar luego por imágenes reales del negocio para mayor identidad de marca.
+ */
+const heroSlides = [
+  {
+    id: 1,
+    title: 'Viví la pesca con el mejor equipo',
+    subtitle: 'Todo para río, camping y aventura.',
+    src: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1800&q=80',
+    alt: 'Paisaje de agua y naturaleza para pesca'
+  },
+  {
+    id: 2,
+    title: 'Tu próxima salida empieza acá',
+    subtitle: 'Asesoramiento real y atención personalizada.',
+    src: 'https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=1800&q=80',
+    alt: 'Lago y paisaje natural ideal para pesca'
+  },
+  {
+    id: 3,
+    title: 'Pesca y camping en un solo lugar',
+    subtitle: 'Equipate mejor para disfrutar más.',
+    src: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1800&q=80',
+    alt: 'Escenario natural de aventura y aire libre'
+  }
+];
+
 export default function HeroSection() {
   const navigate = useNavigate();
   const location = useLocation();
+  const [activeSlide, setActiveSlide] = useState(0);
 
   const whatsappUrl =
     siteConfig?.social?.whatsapp?.url ||
@@ -100,6 +131,28 @@ export default function HeroSection() {
     }
   ].filter((x) => !!x.url);
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveSlide((prev) => (prev + 1) % heroSlides.length);
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const nextSlide = () => {
+    setActiveSlide((prev) => (prev + 1) % heroSlides.length);
+  };
+
+  const prevSlide = () => {
+    setActiveSlide(
+      (prev) => (prev - 1 + heroSlides.length) % heroSlides.length
+    );
+  };
+
+  const goToSlide = (index) => {
+    setActiveSlide(index);
+  };
+
   const goToSection = (sectionId) => {
     if (!sectionId) return;
 
@@ -125,10 +178,55 @@ export default function HeroSection() {
   return (
     <section
       id="inicio"
-      className="relative pt-6 sm:pt-8 lg:pt-10 pb-10 sm:pb-12 lg:pb-16"
+      className="relative overflow-hidden pt-6 sm:pt-8 lg:pt-10 pb-10 sm:pb-12 lg:pb-16"
       aria-label="Inicio"
     >
-      <div className="rp-container">
+      {/* Background carousel */}
+      <div className="absolute inset-0">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={heroSlides[activeSlide].id}
+            className="absolute inset-0"
+            initial={{ opacity: 0, scale: 1.06 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 1.03 }}
+            transition={{ duration: 1.1, ease: 'easeOut' }}
+            style={{
+              backgroundImage: `url(${heroSlides[activeSlide].src})`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center'
+            }}
+            aria-hidden="true"
+          />
+        </AnimatePresence>
+
+        {/* Overlays oscuros para lectura */}
+        <div
+          className="absolute inset-0"
+          aria-hidden="true"
+          style={{
+            background: `
+              linear-gradient(90deg, rgba(7,12,18,0.82) 0%, rgba(7,12,18,0.66) 34%, rgba(7,12,18,0.52) 55%, rgba(7,12,18,0.62) 100%),
+              linear-gradient(180deg, rgba(4,10,16,0.28) 0%, rgba(4,10,16,0.36) 28%, rgba(4,10,16,0.72) 100%)
+            `
+          }}
+        />
+
+        {/* Luces sutiles */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          aria-hidden="true"
+          style={{
+            background: `
+              radial-gradient(700px 320px at 12% 12%, rgba(245,222,179,0.10), transparent 60%),
+              radial-gradient(560px 260px at 84% 18%, rgba(134,239,172,0.10), transparent 58%),
+              radial-gradient(480px 220px at 50% 100%, rgba(255,255,255,0.05), transparent 62%)
+            `
+          }}
+        />
+      </div>
+
+      <div className="relative z-10 rp-container">
         <div className="grid items-center gap-6 lg:gap-8 xl:gap-10 lg:grid-cols-[1.05fr_0.95fr]">
           {/* LEFT COLUMN */}
           <div className="relative">
@@ -140,16 +238,16 @@ export default function HeroSection() {
               className="inline-flex items-center gap-2 rounded-full px-3 py-2 text-xs sm:text-sm"
               style={{
                 background:
-                  'linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.05))',
-                border: '1px solid rgba(255,255,255,0.10)',
+                  'linear-gradient(180deg, rgba(255,255,255,0.12), rgba(255,255,255,0.06))',
+                border: '1px solid rgba(255,255,255,0.12)',
                 color: 'rgba(255,255,255,0.92)',
                 boxShadow:
-                  '0 10px 24px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.04)',
+                  '0 10px 24px rgba(0,0,0,0.16), inset 0 1px 0 rgba(255,255,255,0.05)',
                 backdropFilter: 'blur(10px)',
                 WebkitBackdropFilter: 'blur(10px)'
               }}
             >
-              <span className="inline-flex h-2 w-2 rounded-full bg-white/90 shadow-[0_0_12px_rgba(255,255,255,0.35)]" />
+              <span className="inline-flex h-2 w-2 rounded-full bg-emerald-300 shadow-[0_0_12px_rgba(110,231,183,0.45)]" />
               <span className="font-semibold tracking-[0.08em] uppercase">
                 {siteConfig.brand.name}
               </span>
@@ -163,21 +261,21 @@ export default function HeroSection() {
               initial="hidden"
               animate="show"
               className="font-bignoodle mt-4 sm:mt-5 text-[3rem] leading-[1.04] sm:text-[2.5rem] lg:text-[3.2rem] xl:text-[4.7rem] font-extrabold tracking-[-0.03em] text-white"
-              style={{ textShadow: '0 10px 40px rgba(5, 20, 34, 0.18)' }}
+              style={{ textShadow: '0 10px 40px rgba(0,0,0,0.32)' }}
             >
               Todo para{' '}
               <span
                 className="inline-block"
                 style={{
                   background:
-                    'linear-gradient(135deg, rgba(255,255,255,1), rgba(167,223,247,0.9) 45%, rgba(121,196,234,0.9))',
+                    'linear-gradient(135deg, rgba(255,255,255,1), rgba(245,222,179,0.96) 45%, rgba(134,239,172,0.92))',
                   WebkitBackgroundClip: 'text',
                   backgroundClip: 'text',
                   color: 'transparent'
                 }}
               >
                 pesca y camping
-              </span>{' '}
+              </span>
             </motion.h1>
 
             <motion.p
@@ -185,7 +283,7 @@ export default function HeroSection() {
               variants={fadeUp}
               initial="hidden"
               animate="show"
-              className="font-messina mt-4 max-w-[62ch] text-sm sm:text-base lg:text-lg leading-relaxed text-white/82"
+              className="font-messina mt-4 max-w-[62ch] text-sm sm:text-base lg:text-lg leading-relaxed text-white/84"
             >
               Te ayudamos a elegir cañas, reels, carnadas y accesorios según tu
               salida, experiencia y presupuesto. Atención rápida por WhatsApp y
@@ -212,7 +310,7 @@ export default function HeroSection() {
                     'linear-gradient(135deg, rgba(29,185,84,0.96), rgba(37,211,102,0.96))',
                   border: '1px solid rgba(255,255,255,0.18)',
                   boxShadow:
-                    '0 14px 28px rgba(29,185,84,0.20), inset 0 1px 0 rgba(255,255,255,0.18)'
+                    '0 14px 28px rgba(29,185,84,0.24), inset 0 1px 0 rgba(255,255,255,0.18)'
                 }}
                 aria-label="Consultar por WhatsApp"
               >
@@ -241,10 +339,10 @@ export default function HeroSection() {
                 className="inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 font-semibold text-white"
                 style={{
                   background:
-                    'linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03))',
-                  border: '1px solid rgba(255,255,255,0.12)',
+                    'linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.05))',
+                  border: '1px solid rgba(255,255,255,0.14)',
                   boxShadow:
-                    '0 12px 24px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.03)',
+                    '0 12px 24px rgba(0,0,0,0.14), inset 0 1px 0 rgba(255,255,255,0.04)',
                   backdropFilter: 'blur(10px)',
                   WebkitBackdropFilter: 'blur(10px)'
                 }}
@@ -253,29 +351,6 @@ export default function HeroSection() {
                   Ver productos
                 </span>
               </motion.button>
-            </motion.div>
-
-            {/* Trust badges */}
-            <motion.div
-              custom={4}
-              variants={fadeUp}
-              initial="hidden"
-              animate="show"
-              className="mt-5 flex flex-wrap gap-2"
-            >
-              {trustBadges.map((badge) => (
-                <span
-                  key={badge}
-                  className="inline-flex items-center rounded-full px-3 py-1.5 text-xs sm:text-[13px] text-white/86"
-                  style={{
-                    background: 'rgba(255,255,255,0.04)',
-                    border: '1px solid rgba(255,255,255,0.08)',
-                    boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.02)'
-                  }}
-                >
-                  {badge}
-                </span>
-              ))}
             </motion.div>
 
             {/* Social + local proof row */}
@@ -287,7 +362,7 @@ export default function HeroSection() {
               className="mt-5 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4"
             >
               <div className="inline-flex items-center gap-2 text-white/82">
-                <FaMapMarkerAlt className="text-[13px] text-white/75" />
+                <FaMapMarkerAlt className="text-[13px] text-emerald-300/90" />
                 <span className="text-sm">
                   {siteConfig.brand.locationLabel}
                 </span>
@@ -307,10 +382,12 @@ export default function HeroSection() {
                         whileTap={{ scale: 0.96 }}
                         className="inline-flex h-9 w-9 items-center justify-center rounded-full text-white/85 hover:text-white"
                         style={{
-                          background: 'rgba(255,255,255,0.045)',
-                          border: '1px solid rgba(255,255,255,0.08)',
+                          background: 'rgba(255,255,255,0.08)',
+                          border: '1px solid rgba(255,255,255,0.12)',
                           boxShadow:
-                            '0 8px 16px rgba(0,0,0,0.10), inset 0 1px 0 rgba(255,255,255,0.02)'
+                            '0 8px 16px rgba(0,0,0,0.14), inset 0 1px 0 rgba(255,255,255,0.03)',
+                          backdropFilter: 'blur(8px)',
+                          WebkitBackdropFilter: 'blur(8px)'
                         }}
                         title={`${item.label}${item.handle ? ` · ${item.handle}` : ''}`}
                         aria-label={`${item.label} ${item.handle}`}
@@ -336,10 +413,10 @@ export default function HeroSection() {
               className="relative overflow-hidden rounded-[26px] p-4 sm:p-5 lg:p-6"
               style={{
                 background:
-                  'linear-gradient(180deg, rgba(8,23,41,0.50), rgba(8,23,41,0.35))',
-                border: '1px solid rgba(255,255,255,0.10)',
+                  'linear-gradient(180deg, rgba(10,16,20,0.42), rgba(10,16,20,0.28))',
+                border: '1px solid rgba(255,255,255,0.12)',
                 boxShadow:
-                  '0 26px 60px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.03)',
+                  '0 26px 60px rgba(0,0,0,0.22), inset 0 1px 0 rgba(255,255,255,0.04)',
                 backdropFilter: 'blur(14px)',
                 WebkitBackdropFilter: 'blur(14px)'
               }}
@@ -350,28 +427,10 @@ export default function HeroSection() {
                 className="pointer-events-none absolute inset-0"
                 style={{
                   background: `
-                    radial-gradient(520px 220px at 82% 10%, rgba(121,196,234,0.16), transparent 60%),
-                    radial-gradient(420px 220px at 8% 18%, rgba(167,223,247,0.10), transparent 65%),
-                    radial-gradient(360px 200px at 50% 100%, rgba(84,164,206,0.08), transparent 70%)
+                    radial-gradient(520px 220px at 82% 10%, rgba(110,231,183,0.10), transparent 60%),
+                    radial-gradient(420px 220px at 8% 18%, rgba(245,222,179,0.08), transparent 65%),
+                    radial-gradient(360px 200px at 50% 100%, rgba(255,255,255,0.04), transparent 70%)
                   `
-                }}
-              />
-
-              {/* shimmer */}
-              <motion.div
-                aria-hidden="true"
-                className="pointer-events-none absolute -left-1/3 top-0 h-full w-1/3"
-                style={{
-                  background:
-                    'linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,0.05), rgba(255,255,255,0))',
-                  filter: 'blur(10px)'
-                }}
-                animate={{ x: ['0%', '310%'] }}
-                transition={{
-                  duration: 7.5,
-                  ease: 'linear',
-                  repeat: Infinity,
-                  repeatDelay: 2.5
                 }}
               />
 
@@ -380,10 +439,10 @@ export default function HeroSection() {
                 className="relative rounded-2xl p-4 sm:p-5"
                 style={{
                   background:
-                    'linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.025))',
-                  border: '1px solid rgba(255,255,255,0.09)',
+                    'linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.035))',
+                  border: '1px solid rgba(255,255,255,0.10)',
                   boxShadow:
-                    'inset 0 1px 0 rgba(255,255,255,0.03), 0 14px 28px rgba(0,0,0,0.12)'
+                    'inset 0 1px 0 rgba(255,255,255,0.04), 0 14px 28px rgba(0,0,0,0.16)'
                 }}
               >
                 <div className="flex items-start gap-3">
@@ -393,7 +452,7 @@ export default function HeroSection() {
                       className="relative h-14 w-14 rounded-2xl p-[2px]"
                       style={{
                         background:
-                          'linear-gradient(180deg, rgba(255,255,255,0.14), rgba(255,255,255,0.05))',
+                          'linear-gradient(180deg, rgba(255,255,255,0.16), rgba(255,255,255,0.06))',
                         border: '1px solid rgba(255,255,255,0.08)'
                       }}
                     >
@@ -417,7 +476,7 @@ export default function HeroSection() {
                       <span
                         className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] text-white/88"
                         style={{
-                          background: 'rgba(255,255,255,0.045)',
+                          background: 'rgba(255,255,255,0.06)',
                           border: '1px solid rgba(255,255,255,0.08)'
                         }}
                       >
@@ -427,7 +486,7 @@ export default function HeroSection() {
                       <span
                         className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] text-white/88"
                         style={{
-                          background: 'rgba(255,255,255,0.045)',
+                          background: 'rgba(255,255,255,0.06)',
                           border: '1px solid rgba(255,255,255,0.08)'
                         }}
                       >
@@ -437,7 +496,7 @@ export default function HeroSection() {
                       <span
                         className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] text-white/88"
                         style={{
-                          background: 'rgba(255,255,255,0.045)',
+                          background: 'rgba(255,255,255,0.06)',
                           border: '1px solid rgba(255,255,255,0.08)'
                         }}
                       >
@@ -445,6 +504,77 @@ export default function HeroSection() {
                         Asesoramiento
                       </span>
                     </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Franja con texto del slide activo */}
+              <div
+                className="relative mt-4 rounded-2xl p-4"
+                style={{
+                  background:
+                    'linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0.03))',
+                  border: '1px solid rgba(255,255,255,0.09)'
+                }}
+              >
+                <div className="text-white font-semibold text-sm sm:text-base">
+                  {heroSlides[activeSlide].title}
+                </div>
+                <div className="mt-1 text-white/72 text-xs sm:text-sm leading-relaxed">
+                  {heroSlides[activeSlide].subtitle}
+                </div>
+
+                <div className="mt-4 flex items-center justify-between gap-3">
+                  <div className="flex items-center gap-2">
+                    {heroSlides.map((slide, index) => (
+                      <button
+                        key={slide.id}
+                        type="button"
+                        onClick={() => goToSlide(index)}
+                        className="rounded-full transition-all duration-300"
+                        style={{
+                          width: activeSlide === index ? 26 : 9,
+                          height: 9,
+                          background:
+                            activeSlide === index
+                              ? 'linear-gradient(90deg, rgba(134,239,172,0.95), rgba(245,222,179,0.92))'
+                              : 'rgba(255,255,255,0.26)'
+                        }}
+                        aria-label={`Ir a imagen ${index + 1}`}
+                      />
+                    ))}
+                  </div>
+
+                  <div className="flex items-center gap-2">
+                    <motion.button
+                      type="button"
+                      onClick={prevSlide}
+                      whileHover={{ scale: 1.04 }}
+                      whileTap={{ scale: 0.96 }}
+                      className="inline-flex h-9 w-9 items-center justify-center rounded-full text-white"
+                      style={{
+                        background: 'rgba(255,255,255,0.08)',
+                        border: '1px solid rgba(255,255,255,0.12)'
+                      }}
+                      aria-label="Imagen anterior"
+                    >
+                      <FaChevronLeft className="text-xs" />
+                    </motion.button>
+
+                    <motion.button
+                      type="button"
+                      onClick={nextSlide}
+                      whileHover={{ scale: 1.04 }}
+                      whileTap={{ scale: 0.96 }}
+                      className="inline-flex h-9 w-9 items-center justify-center rounded-full text-white"
+                      style={{
+                        background: 'rgba(255,255,255,0.08)',
+                        border: '1px solid rgba(255,255,255,0.12)'
+                      }}
+                      aria-label="Siguiente imagen"
+                    >
+                      <FaChevronRight className="text-xs" />
+                    </motion.button>
                   </div>
                 </div>
               </div>
@@ -466,10 +596,10 @@ export default function HeroSection() {
                       className="group text-left rounded-2xl p-3.5 sm:p-4"
                       style={{
                         background:
-                          'linear-gradient(180deg, rgba(255,255,255,0.045), rgba(255,255,255,0.025))',
-                        border: '1px solid rgba(255,255,255,0.08)',
+                          'linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03))',
+                        border: '1px solid rgba(255,255,255,0.09)',
                         boxShadow:
-                          '0 12px 24px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.02)'
+                          '0 12px 24px rgba(0,0,0,0.10), inset 0 1px 0 rgba(255,255,255,0.02)'
                       }}
                     >
                       <div className="flex items-start gap-3">
@@ -477,8 +607,8 @@ export default function HeroSection() {
                           className="inline-flex h-9 w-9 items-center justify-center rounded-xl text-white/90"
                           style={{
                             background:
-                              'linear-gradient(180deg, rgba(121,196,234,0.18), rgba(84,164,206,0.08))',
-                            border: '1px solid rgba(121,196,234,0.18)'
+                              'linear-gradient(180deg, rgba(134,239,172,0.18), rgba(245,222,179,0.10))',
+                            border: '1px solid rgba(255,255,255,0.12)'
                           }}
                         >
                           <Icon className="text-sm" />
@@ -500,29 +630,6 @@ export default function HeroSection() {
                 })}
               </div>
 
-              {/* Bottom trust strip */}
-              <div
-                className="relative mt-4 rounded-2xl p-3.5"
-                style={{
-                  background:
-                    'linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.02))',
-                  border: '1px solid rgba(255,255,255,0.07)'
-                }}
-              >
-                <div className="flex flex-col sm:flex-row sm:items-center gap-2.5 sm:gap-3">
-                  <div className="text-[11px] uppercase tracking-[0.16em] text-white/58 shrink-0">
-                    Atención
-                  </div>
-
-                  <div className="h-px sm:h-5 sm:w-px bg-white/10 hidden sm:block" />
-
-                  <div className="text-sm text-white/86 leading-relaxed">
-                    Te ayudamos a elegir según tu salida y presupuesto. Consultá
-                    por WhatsApp y te respondemos rápido.
-                  </div>
-                </div>
-              </div>
-
               {/* ondas decorativas sutiles */}
               <div className="pointer-events-none absolute inset-x-4 bottom-3 h-10 opacity-50">
                 {[0, 1, 2].map((i) => (
@@ -532,9 +639,9 @@ export default function HeroSection() {
                     style={{
                       height: 10 + i * 5,
                       bottom: i * 2,
-                      border: '1px solid rgba(167,223,247,0.12)'
+                      border: '1px solid rgba(245,222,179,0.10)'
                     }}
-                    animate={{ x: [0, 8, 0], opacity: [0.22, 0.38, 0.22] }}
+                    animate={{ x: [0, 8, 0], opacity: [0.18, 0.32, 0.18] }}
                     transition={{
                       duration: 4 + i * 1.1,
                       ease: 'easeInOut',
@@ -547,41 +654,8 @@ export default function HeroSection() {
             </div>
           </motion.div>
         </div>
-
-        {/* Bottom quick action strip (extra conversión + navegación) */}
-        {/* <motion.div
-          custom={6}
-          variants={fadeUp}
-          initial="hidden"
-          animate="show"
-          className="mt-6 lg:mt-8 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3"
-        >
-          <QuickActionItem
-            title="Ver productos"
-            subtitle="Explorá categorías principales"
-            onClick={() => goToSection('productos')}
-            accent="blue"
-          />
-          <QuickActionItem
-            title="Consultar carnadas"
-            subtitle="Opciones según tu salida"
-            onClick={() => goToSection('carnadas')}
-            accent="cyan"
-          />
-          <QuickActionItem
-            title="Tips y consejos"
-            subtitle="Contenido útil para elegir mejor"
-            onClick={() => goToSection('tips')}
-            accent="ice"
-          />
-          <QuickActionItem
-            title="Cómo llegar"
-            subtitle={siteConfig.brand.locationLabel}
-            onClick={() => goToSection('ubicacion')}
-            accent="soft"
-          />
-        </motion.div> */}
       </div>
+      
     </section>
   );
 }
@@ -589,20 +663,20 @@ export default function HeroSection() {
 function QuickActionItem({ title, subtitle, onClick, accent = 'blue' }) {
   const accentMap = {
     blue: {
-      bg: 'linear-gradient(180deg, rgba(121,196,234,0.10), rgba(121,196,234,0.04))',
-      border: 'rgba(121,196,234,0.16)'
+      bg: 'linear-gradient(180deg, rgba(134,239,172,0.10), rgba(134,239,172,0.04))',
+      border: 'rgba(134,239,172,0.16)'
     },
     cyan: {
-      bg: 'linear-gradient(180deg, rgba(167,223,247,0.10), rgba(167,223,247,0.04))',
-      border: 'rgba(167,223,247,0.16)'
+      bg: 'linear-gradient(180deg, rgba(245,222,179,0.10), rgba(245,222,179,0.04))',
+      border: 'rgba(245,222,179,0.16)'
     },
     ice: {
       bg: 'linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03))',
       border: 'rgba(255,255,255,0.12)'
     },
     soft: {
-      bg: 'linear-gradient(180deg, rgba(84,164,206,0.08), rgba(255,255,255,0.03))',
-      border: 'rgba(84,164,206,0.14)'
+      bg: 'linear-gradient(180deg, rgba(163,230,53,0.08), rgba(255,255,255,0.03))',
+      border: 'rgba(163,230,53,0.14)'
     }
   };
 

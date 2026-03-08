@@ -133,17 +133,17 @@ body {
   background:
     radial-gradient(
       1200px 700px at 8% -10%,
-      rgba(84, 164, 206, 0.22),
+      rgba(84, 164, 206, 0.14),
       transparent 58%
     ),
     radial-gradient(
       900px 520px at 100% 8%,
-      rgba(47, 127, 190, 0.18),
+      rgba(47, 127, 190, 0.10),
       transparent 56%
     ),
     radial-gradient(
       700px 440px at 50% 100%,
-      rgba(121, 196, 234, 0.1),
+      rgba(121, 196, 234, 0.06),
       transparent 60%
     ),
     linear-gradient(180deg, #061425 0%, #081a2f 48%, #0a1d35 100%);

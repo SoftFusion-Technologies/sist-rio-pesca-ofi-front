@@ -107,6 +107,10 @@ const faqs = [
 ];
 
 function buildWhatsAppUrl() {
+  // Benjamin Orellana - 2026-02-22 - Prioriza link al grupo de sorteos; fallback a chat directo (wa.me).
+  const groupUrl = 'https://chat.whatsapp.com/Bt01EgPaGdC6iIgGC2C61N';
+  if (groupUrl) return groupUrl;
+
   const base =
     siteConfig?.social?.whatsapp?.url ||
     `https://wa.me/${siteConfig?.contact?.phoneRaw || ''}`;

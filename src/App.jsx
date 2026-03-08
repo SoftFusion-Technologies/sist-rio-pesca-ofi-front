@@ -46,7 +46,7 @@ function RootLayout() {
   return (
     <div className="min-h-screen">
       <FishingCampingBackground
-        opacity={0.8}
+        opacity={2.8}
         particleCount={85}
         bubbleCount={24}
         fishCount={5}

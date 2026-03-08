@@ -1,16 +1,119 @@
 <!doctype html>
-<html lang="en">
+<html lang="es-AR">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+
+    <!-- Favicon -->
+    <!-- Ideal: reemplazar por un favicon real del negocio en /public/favicon.ico o /public/logo-rio-pesca.png -->
+    <link rel="icon" type="image/png" href="/logo-rio-pesca.png" />
+
+    <!-- Viewport / compat -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="/src/index.css" rel="stylesheet" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- Primary SEO -->
+    <title>
+      Río de Pesca | Artículos de pesca, camping y accesorios en Tucumán
+    </title>
+    <meta
+      name="description"
+      content="Río de Pesca: tienda de artículos de pesca, camping, carnadas y accesorios en Tucumán. Atención personalizada, asesoramiento real y contacto rápido por WhatsApp."
+    />
+    <meta
+      name="keywords"
+      content="Río de Pesca, pesca, camping, artículos de pesca, reels, cañas, carnadas, accesorios de pesca, tienda de pesca, Tucumán, Río Seco"
+    />
+    <meta name="author" content="Río de Pesca" />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#0a1d35" />
+
+    <!-- Canonical -->
+    <!-- Reemplazar por el dominio real cuando esté publicado -->
+    <link rel="canonical" href="https://www.riodepesca.com/" />
+
+    <!-- Idioma / geolocalización -->
+    <meta name="language" content="Spanish" />
+    <meta name="geo.region" content="AR-T" />
+    <meta name="geo.placename" content="Tucumán" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:title"
+      content="Río de Pesca | Artículos de pesca, camping y accesorios"
+    />
+    <meta
+      property="og:description"
+      content="Todo para pesca y camping en Tucumán. Cañas, reels, carnadas y accesorios con atención personalizada y asesoramiento real."
+    />
+    <meta property="og:locale" content="es_AR" />
+    <meta property="og:site_name" content="Río de Pesca" />
+    <meta property="og:url" content="https://www.riodepesca.com/" />
+    <!-- Ideal: crear esta imagen en /public -->
+    <meta property="og:image" content="https://www.riodepesca.com/og-rio-de-pesca.jpg" />
+    <meta
+      property="og:image:alt"
+      content="Río de Pesca - artículos de pesca y camping en Tucumán"
+    />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Río de Pesca | Artículos de pesca, camping y accesorios"
+    />
+    <meta
+      name="twitter:description"
+      content="Tienda de pesca y camping en Tucumán. Atención personalizada, asesoramiento real y contacto rápido por WhatsApp."
+    />
+    <meta
+      name="twitter:image"
+      content="https://www.riodepesca.com/og-rio-de-pesca.jpg"
+    />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Big+Noodle+Titling&display=swap"
     />
-    <title>sist-rio-pesca-ofi-front</title>
+
+    <!-- CSS -->
+    <link href="/src/index.css" rel="stylesheet" />
+
+    <!-- Datos estructurados -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SportingGoodsStore",
+        "name": "Río de Pesca",
+        "url": "https://www.riodepesca.com/",
+        "logo": "https://www.riodepesca.com/logo-rio-pesca.png",
+        "image": "https://www.riodepesca.com/og-rio-de-pesca.jpg",
+        "description": "Tienda de artículos de pesca, camping, carnadas y accesorios en Tucumán, con atención personalizada y asesoramiento real.",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Río Seco",
+          "addressRegion": "Tucumán",
+          "addressCountry": "AR"
+        },
+        "areaServed": {
+          "@type": "Place",
+          "name": "Tucumán, Argentina"
+        },
+        "knowsAbout": [
+          "Pesca",
+          "Camping",
+          "Carnadas",
+          "Cañas",
+          "Reels",
+          "Accesorios de pesca"
+        ]
+      }
+    </script>
   </head>
+
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>

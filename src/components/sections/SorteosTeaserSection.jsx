@@ -193,7 +193,7 @@ export default function SorteosTeaserSection() {
                 </motion.div>
               </motion.div>
 
-              {/* Panel secundario (compacto, no “derecha grande”) */}
+              {/* Panel  “derecha grande”) */}
               <motion.div
                 variants={fadeUp}
                 initial="hidden"

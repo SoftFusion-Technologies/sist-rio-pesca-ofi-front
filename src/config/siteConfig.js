@@ -46,6 +46,7 @@ export const siteConfig = {
     'tips',
     'sorteos',
     'info',
-    'ubicacion'
+    'ubicacion',
+    'faq'
   ]
 };

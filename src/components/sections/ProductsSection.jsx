@@ -81,7 +81,13 @@ const defaultProducts = [
   }
 ];
 
-const categoriesBase = ['Todos', 'Pesca', 'Camping', 'Accesorios'];
+const categoriesBase = [
+  'Todos',
+  'Pesca',
+  'Camping',
+  'Indumentaria',
+  'Accesorios'
+];
 
 const itemAnim = {
   hidden: { opacity: 0, y: 16, filter: 'blur(6px)' },

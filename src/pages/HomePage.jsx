@@ -6,6 +6,7 @@ import CarnadasSection from '../components/sections/CarnadasSection';
 import TipsSection from '../components/sections/TipsSection';
 import InfoSection from '../components/sections/InfoSection';
 import UbicacionSection from '../components/sections/UbicacionSection';
+
 const HomePage = () => {
   return (
     <div className="relative">

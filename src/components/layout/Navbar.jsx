@@ -25,7 +25,8 @@ const SECTION_LABELS = {
   tips: 'TIPS',
   sorteos: 'SORTEOS',
   info: 'INFO',
-  ubicacion: 'UBICACIÓN'
+  ubicacion: 'UBICACIÓN',
+  faq: 'PREGUNTAS FRECUENTES'
 };
 
 const enterVariants = {
@@ -234,6 +235,12 @@ export default function Navbar() {
       return;
     }
 
+    // Ruta dedicada
+    if (section === 'faq') {
+      navigate('/faq');
+      return;
+    }
+
     // Si estamos fuera del home, navegamos al home con hash
     if (location.pathname !== '/') {
       navigate(`/#${section}`);
@@ -256,7 +263,7 @@ export default function Navbar() {
 
     // fallback
     window.location.hash = section;
-  };
+  };;
 
   return (
     <>

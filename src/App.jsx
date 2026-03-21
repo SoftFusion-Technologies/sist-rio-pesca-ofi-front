@@ -14,6 +14,7 @@ import FishingCampingBackground from './components/ui/FishingCampingBackground';
 import HomePage from './pages/HomePage';
 import Footer from './components/layout/Footer';
 import SorteosPage from './pages/SorteosPage';
+import FaqPage from './pages/FaqPage';
 // import ContactPage from './pages/ContactPage';
 
 function HashScrollHandler() {
@@ -70,6 +71,7 @@ export default function App() {
         <Route element={<RootLayout />}>
           <Route path="/" element={<HomePage />} />
           <Route path="/sorteos" element={<SorteosPage />} />
+          <Route path='/faq' element={<FaqPage />} />
           {/* <Route path="/contacto" element={<ContactPage />} /> */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>

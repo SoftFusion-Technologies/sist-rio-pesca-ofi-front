@@ -10,6 +10,7 @@ import UbicacionSection from '../components/sections/UbicacionSection';
 import FeaturedProductsAccesorios from './FeaturedProductsAccesorios';
 import FeaturedProductsCablesAceroTubosAluminio from './FeaturedProductsCablesAceroTubosAluminio';
 import FeaturedProductsCascabelPluz from './FeaturedProductsCascabelPluz';
+import FeaturedProductsEsmerillones from './FeaturedProductsEsmerillones';
 
 const HomePage = () => {
 
@@ -22,6 +23,7 @@ const HomePage = () => {
         <FeaturedProductsAccesorios></FeaturedProductsAccesorios>
         <FeaturedProductsCablesAceroTubosAluminio></FeaturedProductsCablesAceroTubosAluminio>
         <FeaturedProductsCascabelPluz></FeaturedProductsCascabelPluz>
+        <FeaturedProductsEsmerillones></FeaturedProductsEsmerillones>
         {/* <ProductsSection
           products={products}
           title="Accesorios"

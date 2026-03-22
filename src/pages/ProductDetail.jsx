@@ -29,6 +29,11 @@ import {
   loadAllImages as loadAllImagesCascabelPluz
 } from '../Images/Accesorios/CascabelPluz/accesorios-cascabelPluz';
 
+import {
+  getGroupById as getEsmerillones,
+  loadAllImages as loadAllImagesEsmerillones
+} from '../Images/Accesorios/Esmerillones/accesorios-esmerillones';
+
 /*
  * Benjamin Orellana - 2026-03-21 - Detalle de producto unificado para catálogos locales.
  * Se adapta estilo ecommerce premium a la identidad visual de Río de Pesca, manteniendo CTA principal a WhatsApp.
@@ -79,7 +84,12 @@ export default function ProductDetail() {
         'accesorios-cascabel-pluz': {
           get: getCascabelPluz,
           load: loadAllImagesCascabelPluz,
-          label: 'Accesorios · Cascabel de Pluz'
+          label: 'Accesorios · Cascabel Pluz'
+        },
+        'accesorios-esmerillones': {
+          get: getEsmerillones,
+          load: loadAllImagesEsmerillones,
+          label: 'Accesorios · Esmerillones'
         }
       };
 

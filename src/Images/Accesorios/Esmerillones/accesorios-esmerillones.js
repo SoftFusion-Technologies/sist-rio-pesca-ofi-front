@@ -1,11 +1,11 @@
-// src/data/accesorios-cascabelPluz.js
+// src/data/accesorios-esmerillones.js
 const modules = import.meta.glob(
-  './acc-cascabelpluz*.{jpg,jpeg,png,webp,avif}'
+  './acc-esmerillones*.{jpg,jpeg,png,webp,avif}'
 );
 
 import moneyAR from '../../../utils/money.js';
 
-export const CATEGORY = 'accesorios-cascabelPluz';
+export const CATEGORY = 'accesorios-esmerillones';
 
 const files = Object.entries(modules)
   .map(([path, importFn]) => {

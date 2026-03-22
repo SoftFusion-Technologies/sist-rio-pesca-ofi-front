@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import {
   FaArrowRight,
   FaCampground,
@@ -12,79 +13,16 @@ import {
 import { siteConfig } from '../../config/siteConfig';
 
 /*
- * Benjamin Orellana - 2026-02-22 - Sección de productos rediseñada con foco e-commerce (imagen + categorías + CTA), visualmente distinta al hero y preparada para N productos.
+ * Benjamin Orellana - 2026-03-21 - Adaptación de ProductsSection para navegación a detalle ecommerce local.
+ * Se mantiene la estética actual, se agregan rutas namespaced /product/:catalog/:id/:slug
+ * y se deja preparado para múltiples catálogos locales como accesorios, pesca, camping, etc.
  */
-
-const defaultProducts = [
-  {
-    id: 1,
-    name: 'Caña Spinning Río 2.10m',
-    category: 'Pesca',
-    shortDesc: 'Liviana, versátil y cómoda para salidas recreativas.',
-    audience: 'Principiantes / uso general',
-    tags: ['Spinning', 'Liviana', 'Versátil'],
-    badge: 'Destacado',
-    image:
-      'https://images.unsplash.com/photo-1521334884684-d80222895322?auto=format&fit=crop&w=1200&q=80'
-  },
-  {
-    id: 2,
-    name: 'Reel Frontal 3000',
-    category: 'Pesca',
-    shortDesc: 'Buen balance para río y laguna, ideal para jornadas largas.',
-    audience: 'Pesca variada',
-    tags: ['Reel', 'Frontal', 'Balanceado'],
-    badge: 'Recomendado',
-    image:
-      'https://images.unsplash.com/photo-1509316785289-025f5b846b35?auto=format&fit=crop&w=1200&q=80'
-  },
-  {
-    id: 3,
-    name: 'Caja Organizadora de Señuelos',
-    category: 'Accesorios',
-    shortDesc: 'Ordená tus accesorios y tené todo listo para la salida.',
-    audience: 'Organización de equipo',
-    tags: ['Accesorios', 'Resistente', 'Práctica'],
-    image:
-      'https://images.unsplash.com/photo-1511884642898-4c92249e20b6?auto=format&fit=crop&w=1200&q=80'
-  },
-  {
-    id: 4,
-    name: 'Linterna Recargable Camping',
-    category: 'Camping',
-    shortDesc: 'Iluminación confiable para campamento y pesca nocturna.',
-    audience: 'Camping / nocturna',
-    tags: ['Camping', 'Recargable', 'Portátil'],
-    badge: 'Nuevo',
-    image:
-      'https://images.unsplash.com/photo-1473116763249-2faaef81ccda?auto=format&fit=crop&w=1200&q=80'
-  },
-  {
-    id: 5,
-    name: 'Kit Accesorios de Pesca',
-    category: 'Accesorios',
-    shortDesc: 'Set útil para arrancar o reponer lo básico antes de salir.',
-    audience: 'Inicio / reposición',
-    tags: ['Kit', 'Práctico', 'Salida rápida'],
-    image:
-      'https://images.unsplash.com/photo-1511497584788-876760111969?auto=format&fit=crop&w=1200&q=80'
-  },
-  {
-    id: 6,
-    name: 'Conservadora Compacta',
-    category: 'Camping',
-    shortDesc: 'Ideal para salidas cortas: bebida, carnada y básicos.',
-    audience: 'Salidas de día',
-    tags: ['Conservadora', 'Compacta', 'Camping'],
-    image:
-      'https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=1200&q=80'
-  }
-];
 
 const categoriesBase = [
   'Todos',
   'Pesca',
   'Camping',
+  'Anzuelos',
   'Indumentaria',
   'Accesorios'
 ];
@@ -103,6 +41,22 @@ const itemAnim = {
   }),
   exit: { opacity: 0, y: 10, scale: 0.985, transition: { duration: 0.18 } }
 };
+
+function slugify(text) {
+  return String(text || '')
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)/g, '');
+}
+
+function resolveProductUrl(product, idx = 0) {
+  const catalog = product?.catalog || 'accesorios';
+  const id = product?.id ?? idx;
+  const slug = product?.slug || slugify(product?.name || `producto-${idx}`);
+  return product?.to || `/product/${catalog}/${id}/${slug}`;
+}
 
 function getCategoryIcon(category) {
   const c = String(category || '').toLowerCase();
@@ -128,6 +82,7 @@ function buildWhatsAppUrl(productName) {
 
 function scrollToHash(sectionId) {
   if (!sectionId) return;
+
   const el = document.getElementById(sectionId);
 
   if (el) {
@@ -154,17 +109,29 @@ export default function ProductsSection({
     const sliced =
       Number.isInteger(limit) && limit > 0 ? safe.slice(0, limit) : safe;
 
-    return sliced.map((p, idx) => ({
-      id: p?.id ?? `prod-${idx}`,
-      name: p?.name ?? 'Producto',
-      category: p?.category ?? 'Producto',
-      shortDesc: p?.shortDesc ?? 'Consultanos por este producto.',
-      audience: p?.audience ?? 'Consulta personalizada',
-      tags: Array.isArray(p?.tags) ? p.tags : [],
-      badge: p?.badge || '',
-      image: p?.image || '',
-      priceLabel: p?.priceLabel || 'Consultar precio'
-    }));
+    return sliced.map((p, idx) => {
+      const id = p?.id ?? `prod-${idx}`;
+      const catalog = p?.catalog ?? 'accesorios';
+      const name = p?.name ?? 'Producto';
+      const slug = p?.slug ?? slugify(name);
+
+      return {
+        id,
+        uid: p?.uid ?? `${catalog}-${id}`,
+        catalog,
+        slug,
+        to: p?.to || `/product/${catalog}/${id}/${slug}`,
+        name,
+        category: p?.category ?? 'Producto',
+        shortDesc: p?.shortDesc ?? 'Consultanos por este producto.',
+        description: p?.description ?? 'Consultanos por este producto.',
+        audience: p?.audience ?? 'Consulta personalizada',
+        tags: Array.isArray(p?.tags) ? p.tags : [],
+        badge: p?.badge || '',
+        image: p?.image || '',
+        priceLabel: p?.priceLabel || 'Consultar precio'
+      };
+    });
   }, [products, limit]);
 
   const categories = useMemo(() => {
@@ -176,6 +143,7 @@ export default function ProductsSection({
           .map((x) => String(x))
       )
     ];
+
     return categoriesBase.filter((c) => c === 'Todos' || dynamic.includes(c));
   }, [normalizedProducts]);
 
@@ -311,11 +279,10 @@ export default function ProductsSection({
             <FeaturedProductCard product={featuredProduct} />
 
             <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-1 gap-4 sm:gap-5 content-start auto-rows-min self-start">
-              {' '}
               <AnimatePresence mode="popLayout">
                 {gridProducts.slice(0, 2).map((product, idx) => (
                   <CompactProductCard
-                    key={product.id}
+                    key={product.uid || product.id}
                     product={product}
                     idx={idx}
                   />
@@ -337,7 +304,11 @@ export default function ProductsSection({
           <div className="mt-4 sm:mt-5 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-5">
             <AnimatePresence mode="popLayout">
               {gridProducts.slice(2).map((product, idx) => (
-                <ProductTileCard key={product.id} product={product} idx={idx} />
+                <ProductTileCard
+                  key={product.uid || product.id}
+                  product={product}
+                  idx={idx}
+                />
               ))}
             </AnimatePresence>
           </div>
@@ -417,6 +388,7 @@ export default function ProductsSection({
 
 function FeaturedProductCard({ product }) {
   const Icon = getCategoryIcon(product.category);
+  const detailUrl = resolveProductUrl(product);
 
   return (
     <motion.article
@@ -433,6 +405,12 @@ function FeaturedProductCard({ product }) {
         background: '#081a2f'
       }}
     >
+      <Link
+        to={detailUrl}
+        aria-label={`Ver detalle de ${product.name}`}
+        className="absolute inset-0 z-0"
+      />
+
       <ProductImage image={product.image} alt={product.name} />
 
       {/* overlay */}
@@ -453,7 +431,7 @@ function FeaturedProductCard({ product }) {
         }}
       />
 
-      <div className="absolute inset-0 p-4 sm:p-5 lg:p-6 flex flex-col justify-between">
+      <div className="absolute inset-0 z-10 p-4 sm:p-5 lg:p-6 flex flex-col justify-between">
         <div className="flex items-start justify-between gap-3">
           <div className="flex flex-wrap items-center gap-2">
             <span className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.10em] text-white/95 border border-white/15 bg-white/10 backdrop-blur-sm">
@@ -474,9 +452,11 @@ function FeaturedProductCard({ product }) {
         </div>
 
         <div>
-          <h3 className="text-white text-[1.3rem] sm:text-[1.55rem] lg:text-[1.8rem] font-extrabold tracking-[-0.02em] leading-[1.05] max-w-[18ch]">
-            {product.name}
-          </h3>
+          <Link to={detailUrl} className="inline-block">
+            <h3 className="text-white text-[1.3rem] sm:text-[1.55rem] lg:text-[1.8rem] font-extrabold tracking-[-0.02em] leading-[1.05] max-w-[18ch] hover:text-cyan-100 transition-colors">
+              {product.name}
+            </h3>
+          </Link>
 
           <p className="mt-2 text-white/80 text-sm sm:text-base leading-relaxed max-w-[55ch]">
             {product.shortDesc}
@@ -515,18 +495,15 @@ function FeaturedProductCard({ product }) {
               </span>
             </motion.a>
 
-            <motion.button
-              type="button"
-              onClick={() => scrollToHash('info')}
-              whileHover={{ y: -1 }}
-              whileTap={{ scale: 0.985 }}
-              className="inline-flex items-center justify-center gap-2 rounded-full px-4 py-3 text-white/92 font-semibold border border-white/12 bg-white/8 backdrop-blur-sm"
+            <Link
+              to={detailUrl}
+              className="inline-flex items-center justify-center gap-2 rounded-full px-4 py-3 text-white/92 font-semibold border border-white/12 bg-white/8 backdrop-blur-sm hover:bg-white/12 transition-colors"
             >
               <span className="uppercase tracking-[0.08em] text-sm">
-                Ver más
+                Ver detalle
               </span>
               <FaArrowRight className="text-xs" />
-            </motion.button>
+            </Link>
           </div>
         </div>
       </div>
@@ -536,6 +513,7 @@ function FeaturedProductCard({ product }) {
 
 function CompactProductCard({ product, idx = 0 }) {
   const Icon = getCategoryIcon(product.category);
+  const detailUrl = resolveProductUrl(product, idx);
 
   return (
     <motion.article
@@ -555,8 +533,14 @@ function CompactProductCard({ product, idx = 0 }) {
           '0 16px 34px rgba(0,0,0,0.16), inset 0 1px 0 rgba(255,255,255,0.02)'
       }}
     >
-      <div className="grid grid-cols-[112px_1fr] sm:grid-cols-[120px_1fr]">
-        <div className="relative h-full min-h-[128px]">
+      <Link
+        to={detailUrl}
+        aria-label={`Ver detalle de ${product.name}`}
+        className="absolute inset-0 z-0"
+      />
+
+      <div className="relative z-10 grid grid-cols-[112px_1fr] sm:grid-cols-[120px_1fr]">
+        <Link to={detailUrl} className="relative h-full min-h-[128px] block">
           <ProductImage image={product.image} alt={product.name} />
           <div
             className="absolute inset-0"
@@ -565,7 +549,7 @@ function CompactProductCard({ product, idx = 0 }) {
                 'linear-gradient(90deg, rgba(4,12,22,0.20), rgba(4,12,22,0.05))'
             }}
           />
-        </div>
+        </Link>
 
         <div className="p-3.5 sm:p-4">
           <div className="flex items-center gap-2 flex-wrap">
@@ -573,6 +557,7 @@ function CompactProductCard({ product, idx = 0 }) {
               <Icon className="text-[9px]" />
               {product.category}
             </span>
+
             {product.badge ? (
               <span className="inline-flex rounded-full px-2 py-1 text-[10px] uppercase tracking-[0.10em] font-semibold text-cyan-100 border border-cyan-200/20 bg-cyan-300/8">
                 {product.badge}
@@ -580,9 +565,11 @@ function CompactProductCard({ product, idx = 0 }) {
             ) : null}
           </div>
 
-          <h3 className="mt-2 text-white font-semibold leading-snug text-[0.98rem]">
-            {product.name}
-          </h3>
+          <Link to={detailUrl} className="inline-block mt-2">
+            <h3 className="text-white font-semibold leading-snug text-[0.98rem] hover:text-cyan-100 transition-colors">
+              {product.name}
+            </h3>
+          </Link>
 
           <p className="mt-1.5 text-white/68 text-xs sm:text-[13px] leading-relaxed line-clamp-2">
             {product.shortDesc}
@@ -593,16 +580,25 @@ function CompactProductCard({ product, idx = 0 }) {
               {product.priceLabel}
             </span>
 
-            <motion.a
-              href={buildWhatsAppUrl(product.name)}
-              target="_blank"
-              rel="noreferrer"
-              whileTap={{ scale: 0.97 }}
-              className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[11px] font-semibold text-white border border-white/12 bg-white/6 hover:bg-white/10 transition-colors"
-            >
-              <FaWhatsapp className="text-[11px]" />
-              Consultar
-            </motion.a>
+            <div className="flex items-center gap-2">
+              <motion.a
+                href={buildWhatsAppUrl(product.name)}
+                target="_blank"
+                rel="noreferrer"
+                whileTap={{ scale: 0.97 }}
+                className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[11px] font-semibold text-white border border-white/12 bg-white/6 hover:bg-white/10 transition-colors"
+              >
+                <FaWhatsapp className="text-[11px]" />
+                Consultar
+              </motion.a>
+
+              <Link
+                to={detailUrl}
+                className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[11px] font-semibold text-white border border-cyan-200/18 bg-cyan-300/8 hover:bg-cyan-300/12 transition-colors"
+              >
+                Ver detalle
+              </Link>
+            </div>
           </div>
         </div>
       </div>
@@ -612,6 +608,7 @@ function CompactProductCard({ product, idx = 0 }) {
 
 function ProductTileCard({ product, idx = 0 }) {
   const Icon = getCategoryIcon(product.category);
+  const detailUrl = resolveProductUrl(product, idx);
 
   return (
     <motion.article
@@ -631,92 +628,104 @@ function ProductTileCard({ product, idx = 0 }) {
           '0 16px 34px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.02)'
       }}
     >
-      <div className="relative aspect-[16/10] overflow-hidden">
-        <ProductImage image={product.image} alt={product.name} />
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              'linear-gradient(180deg, rgba(3,9,16,0.06) 0%, rgba(4,12,22,0.55) 100%)'
-          }}
-        />
+      <Link
+        to={detailUrl}
+        aria-label={`Ver detalle de ${product.name}`}
+        className="absolute inset-0 z-0"
+      />
 
-        <div className="absolute left-3 top-3 flex items-center gap-2">
-          <span className="inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[10px] uppercase tracking-[0.10em] font-semibold text-white border border-white/14 bg-black/20 backdrop-blur-sm">
-            <Icon className="text-[9px]" />
-            {product.category}
-          </span>
-        </div>
-
-        {product.badge ? (
-          <div className="absolute right-3 top-3">
-            <span className="inline-flex rounded-full px-2.5 py-1 text-[10px] uppercase tracking-[0.10em] font-semibold text-white border border-cyan-200/25 bg-cyan-300/10 backdrop-blur-sm">
-              {product.badge}
-            </span>
-          </div>
-        ) : null}
-      </div>
-
-      <div className="p-4 sm:p-4.5">
-        <div className="flex items-start justify-between gap-2">
-          <h3 className="text-white font-semibold text-[1rem] leading-snug">
-            {product.name}
-          </h3>
-          <span className="shrink-0 text-white/85 text-xs font-semibold">
-            {product.priceLabel}
-          </span>
-        </div>
-
-        <p className="mt-2 text-white/70 text-sm leading-relaxed line-clamp-2">
-          {product.shortDesc}
-        </p>
-
-        {(product.tags || []).length > 0 && (
-          <div className="mt-3 flex flex-wrap gap-1.5">
-            {product.tags.slice(0, 3).map((tag) => (
-              <span
-                key={`${product.id}-${tag}`}
-                className="inline-flex rounded-full px-2 py-1 text-[10px] text-white/78 border border-white/8 bg-white/4"
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
-        )}
-
-        <div className="mt-4 flex items-center gap-2">
-          <motion.a
-            href={buildWhatsAppUrl(product.name)}
-            target="_blank"
-            rel="noreferrer"
-            whileHover={{ y: -1 }}
-            whileTap={{ scale: 0.985 }}
-            className="inline-flex flex-1 items-center justify-center gap-2 rounded-full px-4 py-2.5 text-white font-semibold"
+      <div className="relative z-10">
+        <Link
+          to={detailUrl}
+          className="relative aspect-[16/10] overflow-hidden block"
+        >
+          <ProductImage image={product.image} alt={product.name} />
+          <div
+            className="absolute inset-0"
             style={{
               background:
-                'linear-gradient(135deg, rgba(29,185,84,0.96), rgba(37,211,102,0.96))',
-              border: '1px solid rgba(255,255,255,0.16)',
-              boxShadow:
-                '0 10px 20px rgba(29,185,84,0.14), inset 0 1px 0 rgba(255,255,255,0.13)'
+                'linear-gradient(180deg, rgba(3,9,16,0.06) 0%, rgba(4,12,22,0.55) 100%)'
             }}
-          >
-            <FaWhatsapp className="text-sm" />
-            <span className="text-[12px] uppercase tracking-[0.08em]">
-              Consultar
-            </span>
-          </motion.a>
+          />
 
-          <motion.button
-            type="button"
-            onClick={() => scrollToHash('info')}
-            whileTap={{ scale: 0.985 }}
-            className="inline-flex items-center justify-center gap-1 rounded-full px-3 py-2.5 text-white/88 border border-white/10 bg-white/5"
-          >
-            <span className="text-[12px] font-semibold uppercase tracking-[0.08em]">
-              Ver
+          <div className="absolute left-3 top-3 flex items-center gap-2">
+            <span className="inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[10px] uppercase tracking-[0.10em] font-semibold text-white border border-white/14 bg-black/20 backdrop-blur-sm">
+              <Icon className="text-[9px]" />
+              {product.category}
             </span>
-            <FaArrowRight className="text-[10px]" />
-          </motion.button>
+          </div>
+
+          {product.badge ? (
+            <div className="absolute right-3 top-3">
+              <span className="inline-flex rounded-full px-2.5 py-1 text-[10px] uppercase tracking-[0.10em] font-semibold text-white border border-cyan-200/25 bg-cyan-300/10 backdrop-blur-sm">
+                {product.badge}
+              </span>
+            </div>
+          ) : null}
+        </Link>
+
+        <div className="p-4 sm:p-4.5">
+          <div className="flex items-start justify-between gap-2">
+            <Link to={detailUrl} className="inline-block">
+              <h3 className="text-white font-semibold text-[1rem] leading-snug hover:text-cyan-100 transition-colors">
+                {product.name}
+              </h3>
+            </Link>
+
+            <span className="shrink-0 text-white/85 text-xs font-semibold">
+              {product.priceLabel}
+            </span>
+          </div>
+
+          <p className="mt-2 text-white/70 text-sm leading-relaxed line-clamp-2">
+            {product.shortDesc}
+          </p>
+
+          {(product.tags || []).length > 0 && (
+            <div className="mt-3 flex flex-wrap gap-1.5">
+              {product.tags.slice(0, 3).map((tag) => (
+                <span
+                  key={`${product.id}-${tag}`}
+                  className="inline-flex rounded-full px-2 py-1 text-[10px] text-white/78 border border-white/8 bg-white/4"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          )}
+
+          <div className="mt-4 flex items-center gap-2">
+            <motion.a
+              href={buildWhatsAppUrl(product.name)}
+              target="_blank"
+              rel="noreferrer"
+              whileHover={{ y: -1 }}
+              whileTap={{ scale: 0.985 }}
+              className="inline-flex flex-1 items-center justify-center gap-2 rounded-full px-4 py-2.5 text-white font-semibold"
+              style={{
+                background:
+                  'linear-gradient(135deg, rgba(29,185,84,0.96), rgba(37,211,102,0.96))',
+                border: '1px solid rgba(255,255,255,0.16)',
+                boxShadow:
+                  '0 10px 20px rgba(29,185,84,0.14), inset 0 1px 0 rgba(255,255,255,0.13)'
+              }}
+            >
+              <FaWhatsapp className="text-sm" />
+              <span className="text-[12px] uppercase tracking-[0.08em]">
+                Consultar
+              </span>
+            </motion.a>
+
+            <Link
+              to={detailUrl}
+              className="inline-flex items-center justify-center gap-1 rounded-full px-3 py-2.5 text-white/88 border border-white/10 bg-white/5 hover:bg-white/8 transition-colors"
+            >
+              <span className="text-[12px] font-semibold uppercase tracking-[0.08em]">
+                Ver
+              </span>
+              <FaArrowRight className="text-[10px]" />
+            </Link>
+          </div>
         </div>
       </div>
     </motion.article>
@@ -769,9 +778,11 @@ function EmptyProductsState({ onReset }) {
       <div className="text-white text-lg font-semibold">
         No encontramos productos con ese filtro
       </div>
+
       <p className="mt-2 text-white/70 text-sm sm:text-base">
         Probá otra categoría o limpiá la búsqueda.
       </p>
+
       <motion.button
         type="button"
         onClick={onReset}

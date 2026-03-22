@@ -67,7 +67,7 @@ export default function App() {
   return (
     <BrowserRouter>
       <Navbar></Navbar>
-      <HashScrollHandler />
+      {/* <HashScrollHandler /> */}
       <Routes>
         <Route element={<RootLayout />}>
           <Route path="/" element={<HomePage />} />

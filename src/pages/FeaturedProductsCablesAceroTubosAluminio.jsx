@@ -2,7 +2,7 @@ import React, { useMemo, useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import DressCard from '../components/DressCard';
-import { ACCESORIOS_GROUP, loadPrimaryImage } from '../Images/Accesorios/Anzuelos/accesorios-anzuelos';
+import { ACCESORIOS_GROUP, loadPrimaryImage } from '../Images/Accesorios/CableDeAceroConTubodeAluminio/accesorios-cablesAcero';
 import SearchBar from '../components/Common/SearchBar';
 import EmptyStateGalactic from '../components/Common/EmptyStateGalactic';
 
@@ -14,8 +14,8 @@ const norm = (s = '') =>
     .replace(/[\u0300-\u036f]/g, '')
     .trim();
 
-export default function FeaturedProductsAccesorios({
-  title = 'Productos - Accesorios - Anzuelos',
+export default function FeaturedProductsAccesoriosCablesAceroTuboAluminio({
+  title = 'Productos - Accesorios - Cables de Acero con Tubos de Aluminio',
   initialBatch = 12,
   batchSize = 12
 }) {

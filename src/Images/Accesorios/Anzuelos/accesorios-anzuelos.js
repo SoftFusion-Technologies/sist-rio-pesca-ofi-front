@@ -1,12 +1,9 @@
 // src/data/accesorios.js
-// Descubre imágenes sin eager
-const modules = import.meta.glob(
-  '../Images/Accesorios/acc-anzuelos*.{jpg,jpeg,png,webp,avif}'
-);
+const modules = import.meta.glob('./acc-anzuelos*.{jpg,jpeg,png,webp,avif}');
 
-export const CATEGORY = 'accesorios'; // namespace del catálogo
+import moneyAR from '../../../utils/money.js';
 
-import moneyAR from '../utils/money.js';
+export const CATEGORY = 'accesorios-anzuelos';
 
 const files = Object.entries(modules)
   .map(([path, importFn]) => {
@@ -46,7 +43,6 @@ function makeGroup(item) {
   };
 }
 
-// Cada archivo es un producto individual
 const groups = files.map(makeGroup);
 
 export const ACCESORIOS_GROUP = groups;

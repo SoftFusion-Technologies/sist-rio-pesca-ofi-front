@@ -6,20 +6,28 @@ import {
   Truck,
   RefreshCw,
   ChevronRight,
-  CheckCircle2,
   Maximize2,
   X,
   MessageCircle,
-  Fish,
-  BadgeInfo
+  Fish
 } from 'lucide-react';
 import { siteConfig } from '../config/siteConfig';
 import ProductNotFound from '../components/ProductNotFound';
 
 import {
-  getGroupById as getAccesorio,
-  loadAllImages as loadAllImagesAccesorios
-} from '../data/accesorios-anzuelos';
+  getGroupById as getAccesorioAnzuelo,
+  loadAllImages as loadAllImagesAnzuelos
+} from '../Images/Accesorios/Anzuelos/accesorios-anzuelos';
+
+import {
+  getGroupById as getCableAceroTuboAluminio,
+  loadAllImages as loadAllImagesCableAceroTuboAluminio
+} from '../Images/Accesorios/CableDeAceroConTubodeAluminio/accesorios-cablesAcero';
+
+import {
+  getGroupById as getCascabelPluz,
+  loadAllImages as loadAllImagesCascabelPluz
+} from '../Images/Accesorios/CascabelPluz/accesorios-cascabelPluz';
 
 /*
  * Benjamin Orellana - 2026-03-21 - Detalle de producto unificado para catálogos locales.
@@ -58,10 +66,20 @@ export default function ProductDetail() {
 
     async function load() {
       const sources = {
-        accesorios: {
-          get: getAccesorio,
-          load: loadAllImagesAccesorios,
-          label: 'Accesorios'
+        'accesorios-anzuelos': {
+          get: getAccesorioAnzuelo,
+          load: loadAllImagesAnzuelos,
+          label: 'Accesorios · Anzuelos'
+        },
+        'accesorios-cables-acero-tubos-aluminio': {
+          get: getCableAceroTuboAluminio,
+          load: loadAllImagesCableAceroTuboAluminio,
+          label: 'Accesorios · Cable de Acero con Tubos de Aluminio'
+        },
+        'accesorios-cascabel-pluz': {
+          get: getCascabelPluz,
+          load: loadAllImagesCascabelPluz,
+          label: 'Accesorios · Cascabel de Pluz'
         }
       };
 

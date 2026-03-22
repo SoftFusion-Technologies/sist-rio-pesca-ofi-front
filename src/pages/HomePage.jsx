@@ -8,6 +8,8 @@ import InfoSection from '../components/sections/InfoSection';
 import UbicacionSection from '../components/sections/UbicacionSection';
 
 import FeaturedProductsAccesorios from './FeaturedProductsAccesorios';
+import FeaturedProductsCablesAceroTubosAluminio from './FeaturedProductsCablesAceroTubosAluminio';
+import FeaturedProductsCascabelPluz from './FeaturedProductsCascabelPluz';
 
 const HomePage = () => {
 
@@ -18,6 +20,8 @@ const HomePage = () => {
       <div className="relative z-20 -mt-10 sm:-mt-14 lg:-mt-20">
         <SorteosTeaserSection />
         <FeaturedProductsAccesorios></FeaturedProductsAccesorios>
+        <FeaturedProductsCablesAceroTubosAluminio></FeaturedProductsCablesAceroTubosAluminio>
+        <FeaturedProductsCascabelPluz></FeaturedProductsCascabelPluz>
         {/* <ProductsSection
           products={products}
           title="Accesorios"

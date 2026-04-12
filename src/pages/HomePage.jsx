@@ -6,13 +6,21 @@ import CarnadasSection from '../components/sections/CarnadasSection';
 import TipsSection from '../components/sections/TipsSection';
 import InfoSection from '../components/sections/InfoSection';
 import UbicacionSection from '../components/sections/UbicacionSection';
-
+/* ACCESORIOS  */
 import FeaturedProductsAccesorios from './FeaturedProductsAccesorios';
 import FeaturedProductsCablesAceroTubosAluminio from './FeaturedProductsCablesAceroTubosAluminio';
 import FeaturedProductsCascabelPluz from './FeaturedProductsCascabelPluz';
 import FeaturedProductsEsmerillones from './FeaturedProductsEsmerillones';
 import FeaturedProductsTrampa2 from './FeaturedProductsTrampa2';
 import FeaturedProductsTrampa6 from './FeaturedProductsTrampa6';
+/* ACCESORIOS  */
+
+/* BOLSOS TERMICOS  */
+import FeaturedProductsbt_75 from './Bolsos_Termicos/FeaturedProductsbt_7,5l';
+import FeaturedProductsbt_135 from './Bolsos_Termicos/FeaturedProductsbt_13,5';
+import FeaturedProductsbt_ConservadoraFishman from './Bolsos_Termicos/FeaturedProductsbt_ConservadoraFishman';
+import FeaturedProductsbt_ConservadoraTelgopor from './Bolsos_Termicos/FeaturedProductsbt_ConservadoraTelgopor';
+/* BOLSOS TERMICOS  */
 const HomePage = () => {
 
   return (
@@ -21,12 +29,22 @@ const HomePage = () => {
 
       <div className="relative z-20 -mt-10 sm:-mt-14 lg:-mt-20">
         <SorteosTeaserSection />
+        {/* ACCESORIOS  */}
         <FeaturedProductsAccesorios></FeaturedProductsAccesorios>
         <FeaturedProductsCablesAceroTubosAluminio></FeaturedProductsCablesAceroTubosAluminio>
         <FeaturedProductsCascabelPluz></FeaturedProductsCascabelPluz>
         <FeaturedProductsEsmerillones></FeaturedProductsEsmerillones>
         <FeaturedProductsTrampa2></FeaturedProductsTrampa2>
         <FeaturedProductsTrampa6></FeaturedProductsTrampa6>
+        {/* ACCESORIOS  */}
+
+        {/* BOLSOS TERMICOS  */}
+        <FeaturedProductsbt_75></FeaturedProductsbt_75>
+        <FeaturedProductsbt_135></FeaturedProductsbt_135>
+        <FeaturedProductsbt_ConservadoraFishman></FeaturedProductsbt_ConservadoraFishman>
+        <FeaturedProductsbt_ConservadoraTelgopor></FeaturedProductsbt_ConservadoraTelgopor>
+        {/* BOLSOS TERMICOS  */}
+
         {/* <ProductsSection
           products={products}
           title="Accesorios"

@@ -14,6 +14,7 @@ import {
 import { siteConfig } from '../config/siteConfig';
 import ProductNotFound from '../components/ProductNotFound';
 
+// ACCESORIOS 
 import {
   getGroupById as getAccesorioAnzuelo,
   loadAllImages as loadAllImagesAnzuelos
@@ -43,6 +44,30 @@ import {
   getGroupById as getTrampa6,
   loadAllImages as loadAllImagesTrampa6
 } from '../Images/Accesorios/TrampaMojarrera6/accesorios-trampa6';
+// ACCESORIOS 
+
+// BOLSOS TERMICOS 
+import {
+  getGroupById as getBolsosTermicosbt_75,
+  loadAllImages as loadAllImagesBolsosTermicosbt_75
+} from '../Images/Bolsos_Termicos/bt_7,5l/bt_7,5l';
+
+import {
+  getGroupById as getBolsosTermicosbt_135,
+  loadAllImages as loadAllImagesBolsosTermicosbt_135
+} from '../Images/Bolsos_Termicos/bt_13,5l/bt_13,5';
+
+import {
+  getGroupById as getBolsosTermicosbt_ConservadoraFishman,
+  loadAllImages as loadAllImagesBolsosTermicosbt_ConservadoraFishman
+} from '../Images/Bolsos_Termicos/Conservadora_Fishman_9l/bt_conservadora_fishaman';
+
+import {
+  getGroupById as getBolsosTermicosbt_ConservadoraTelgopor,
+  loadAllImages as loadAllImagesBolsosTermicosbt_ConservadoraTelgopor
+} from '../Images/Bolsos_Termicos/Conservadora_Telgopor/bt_conservadora_telgopor';  
+
+// BOLSOS TERMICOS 
 
 /*
  * Benjamin Orellana - 2026-03-21 - Detalle de producto unificado para catálogos locales.
@@ -110,6 +135,26 @@ export default function ProductDetail() {
           get: getTrampa6,
           load: loadAllImagesTrampa6,
           label: 'Accesorios · Trampa Mojarrera 6 Bocas'
+        },
+        'bolsos-termicos-bt-75': {
+          get: getBolsosTermicosbt_75,
+          load: loadAllImagesBolsosTermicosbt_75,
+          label: 'Bolsos Térmicos · 7,5 Litros'
+        },
+        'bolsos-termicos-bt-135': {
+          get: getBolsosTermicosbt_135,
+          load: loadAllImagesBolsosTermicosbt_135,
+          label: 'Bolsos Térmicos · 13,5 Litros'
+        },
+        'bolsos-termicos-bt-conservadora-fishman': {
+          get: getBolsosTermicosbt_ConservadoraFishman,
+          load: loadAllImagesBolsosTermicosbt_ConservadoraFishman,
+          label: 'Bolsos Térmicos · Conservadora FISHMAN'
+        },
+        'bolsos-termicos-bt-conservadora-telgopor': {
+          get: getBolsosTermicosbt_ConservadoraTelgopor,
+          load: loadAllImagesBolsosTermicosbt_ConservadoraTelgopor,
+          label: 'Bolsos Térmicos · Conservadora TELGOPOR'
         }
       };
 

@@ -11,7 +11,8 @@ import FeaturedProductsAccesorios from './FeaturedProductsAccesorios';
 import FeaturedProductsCablesAceroTubosAluminio from './FeaturedProductsCablesAceroTubosAluminio';
 import FeaturedProductsCascabelPluz from './FeaturedProductsCascabelPluz';
 import FeaturedProductsEsmerillones from './FeaturedProductsEsmerillones';
-
+import FeaturedProductsTrampa2 from './FeaturedProductsTrampa2';
+import FeaturedProductsTrampa6 from './FeaturedProductsTrampa6';
 const HomePage = () => {
 
   return (
@@ -24,6 +25,8 @@ const HomePage = () => {
         <FeaturedProductsCablesAceroTubosAluminio></FeaturedProductsCablesAceroTubosAluminio>
         <FeaturedProductsCascabelPluz></FeaturedProductsCascabelPluz>
         <FeaturedProductsEsmerillones></FeaturedProductsEsmerillones>
+        <FeaturedProductsTrampa2></FeaturedProductsTrampa2>
+        <FeaturedProductsTrampa6></FeaturedProductsTrampa6>
         {/* <ProductsSection
           products={products}
           title="Accesorios"

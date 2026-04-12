@@ -1,11 +1,11 @@
-// src/data/accesorios-esmerillones.js
+// src/data/accesorios-trampa2.js
 const modules = import.meta.glob(
-  './acc-esmerillones*.{jpg,jpeg,png,webp,avif}'
+  './acc-trampa*.{jpg,jpeg,png,webp,avif}'
 );
 
 import moneyAR from '../../../utils/money.js';
 
-export const CATEGORY = 'accesorios-esmerillones';
+export const CATEGORY = 'accesorios-trampa';
 
 const files = Object.entries(modules)
   .map(([path, importFn]) => {
@@ -27,7 +27,7 @@ function slugify(text) {
 
 function makeGroup(item) {
   const rep = item.num;
-  const name = `Esmerillones ${rep}`;
+  const name = `Trampa Mojarrera 2 bocas ${rep}`;
   const slug = slugify(`${rep}-${name}`);
 
   return {

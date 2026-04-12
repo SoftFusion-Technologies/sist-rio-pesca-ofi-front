@@ -34,6 +34,16 @@ import {
   loadAllImages as loadAllImagesEsmerillones
 } from '../Images/Accesorios/Esmerillones/accesorios-esmerillones';
 
+import {
+  getGroupById as getTrampa2,
+  loadAllImages as loadAllImagesTrampa2
+} from '../Images/Accesorios/TrampaMojarrera2/accesorios-trampa2';
+
+import {
+  getGroupById as getTrampa6,
+  loadAllImages as loadAllImagesTrampa6
+} from '../Images/Accesorios/TrampaMojarrera6/accesorios-trampa6';
+
 /*
  * Benjamin Orellana - 2026-03-21 - Detalle de producto unificado para catálogos locales.
  * Se adapta estilo ecommerce premium a la identidad visual de Río de Pesca, manteniendo CTA principal a WhatsApp.
@@ -81,7 +91,7 @@ export default function ProductDetail() {
           load: loadAllImagesCableAceroTuboAluminio,
           label: 'Accesorios · Cable de Acero con Tubos de Aluminio'
         },
-        'accesorios-cascabel-pluz': {
+        'accesorios-cascabelPluz': {
           get: getCascabelPluz,
           load: loadAllImagesCascabelPluz,
           label: 'Accesorios · Cascabel Pluz'
@@ -90,6 +100,16 @@ export default function ProductDetail() {
           get: getEsmerillones,
           load: loadAllImagesEsmerillones,
           label: 'Accesorios · Esmerillones'
+        },
+        'accesorios-trampa': {
+          get: getTrampa2,
+          load: loadAllImagesTrampa2,
+          label: 'Accesorios · Trampa Mojarrera 2 Bocas'
+        },
+        'accesorios-trampa6': {
+          get: getTrampa6,
+          load: loadAllImagesTrampa6,
+          label: 'Accesorios · Trampa Mojarrera 6 Bocas'
         }
       };
 

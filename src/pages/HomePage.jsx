@@ -20,6 +20,7 @@ import FeaturedProductsbt_75 from './Bolsos_Termicos/FeaturedProductsbt_7,5l';
 import FeaturedProductsbt_135 from './Bolsos_Termicos/FeaturedProductsbt_13,5';
 import FeaturedProductsbt_ConservadoraFishman from './Bolsos_Termicos/FeaturedProductsbt_ConservadoraFishman';
 import FeaturedProductsbt_ConservadoraTelgopor from './Bolsos_Termicos/FeaturedProductsbt_ConservadoraTelgopor';
+import FeaturedProductsBoyas from './Boyas/FeaturedProductsBoyas';
 /* BOLSOS TERMICOS  */
 const HomePage = () => {
 
@@ -44,6 +45,10 @@ const HomePage = () => {
         <FeaturedProductsbt_ConservadoraFishman></FeaturedProductsbt_ConservadoraFishman>
         <FeaturedProductsbt_ConservadoraTelgopor></FeaturedProductsbt_ConservadoraTelgopor>
         {/* BOLSOS TERMICOS  */}
+
+        {/* BOYAS  */}
+        <FeaturedProductsBoyas></FeaturedProductsBoyas>
+        {/* BOYAS  */}
 
         {/* <ProductsSection
           products={products}

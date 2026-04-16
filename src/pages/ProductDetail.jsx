@@ -69,6 +69,15 @@ import {
 
 // BOLSOS TERMICOS 
 
+// BOYAS
+import {
+  getGroupById as getBoyas,
+  loadAllImages as loadAllImagesBoyas
+} from '../Images/Boyas/boyas';
+
+// BOYAS
+
+
 /*
  * Benjamin Orellana - 2026-03-21 - Detalle de producto unificado para catálogos locales.
  * Se adapta estilo ecommerce premium a la identidad visual de Río de Pesca, manteniendo CTA principal a WhatsApp.
@@ -155,6 +164,11 @@ export default function ProductDetail() {
           get: getBolsosTermicosbt_ConservadoraTelgopor,
           load: loadAllImagesBolsosTermicosbt_ConservadoraTelgopor,
           label: 'Bolsos Térmicos · Conservadora TELGOPOR'
+        },
+        'boyas': {
+          get: getBoyas,
+          load: loadAllImagesBoyas,
+          label: 'Boyas'
         }
       };
 

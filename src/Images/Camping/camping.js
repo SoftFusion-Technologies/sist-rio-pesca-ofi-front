@@ -1,11 +1,11 @@
 // src/data/accesorios-trampa2.js
 const modules = import.meta.glob(
-  './Boyas*.{jpg,jpeg,png,webp,avif}'
+  './camping*.{jpg,jpeg,png,webp,avif}'
 );
 
 import moneyAR from '../../utils/money.js';
 
-export const CATEGORY = 'Boyas';
+export const CATEGORY = 'camping';
 
 const files = Object.entries(modules)
   .map(([path, importFn]) => {
@@ -27,7 +27,7 @@ function slugify(text) {
 
 function makeGroup(item) {
   const rep = item.num;
-  const name = `Boyas ${rep}`;
+  const name = `Camping ${rep}`;
   const slug = slugify(`${rep}-${name}`);
 
   return {

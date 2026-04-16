@@ -74,8 +74,14 @@ import {
   getGroupById as getBoyas,
   loadAllImages as loadAllImagesBoyas
 } from '../Images/Boyas/boyas';
-
 // BOYAS
+
+// Camping
+import {
+  getGroupById as getCamping,
+  loadAllImages as loadAllImagesCamping
+} from '../Images/Camping/camping';
+// Camping
 
 
 /*
@@ -169,6 +175,11 @@ export default function ProductDetail() {
           get: getBoyas,
           load: loadAllImagesBoyas,
           label: 'Boyas'
+        },
+        'camping': {
+          get: getCamping,
+          load: loadAllImagesCamping,
+          label: 'Camping'
         }
       };
 

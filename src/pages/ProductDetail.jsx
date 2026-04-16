@@ -83,7 +83,19 @@ import {
 } from '../Images/Camping/camping';
 // Camping
 
+// Cañas
+import {
+  getGroupById as getCañas,
+  loadAllImages as loadAllImagesCañas
+} from '../Images/Cañas/Cañas';
+// Cañas
 
+// Combos
+import {
+  getGroupById as getCombos,
+  loadAllImages as loadAllImagesCombos
+} from '../Images/Combos/combos';
+// Combos
 /*
  * Benjamin Orellana - 2026-03-21 - Detalle de producto unificado para catálogos locales.
  * Se adapta estilo ecommerce premium a la identidad visual de Río de Pesca, manteniendo CTA principal a WhatsApp.
@@ -180,6 +192,16 @@ export default function ProductDetail() {
           get: getCamping,
           load: loadAllImagesCamping,
           label: 'Camping'
+        },
+        'cañas': {
+          get: getCañas,
+          load: loadAllImagesCañas,
+          label: 'Cañas'
+        },
+        'combos': {
+          get: getCombos,
+          load: loadAllImagesCombos,
+          label: 'Combos'
         }
       };
 

@@ -20,9 +20,21 @@ import FeaturedProductsbt_75 from './Bolsos_Termicos/FeaturedProductsbt_7,5l';
 import FeaturedProductsbt_135 from './Bolsos_Termicos/FeaturedProductsbt_13,5';
 import FeaturedProductsbt_ConservadoraFishman from './Bolsos_Termicos/FeaturedProductsbt_ConservadoraFishman';
 import FeaturedProductsbt_ConservadoraTelgopor from './Bolsos_Termicos/FeaturedProductsbt_ConservadoraTelgopor';
-import FeaturedProductsBoyas from './Boyas/FeaturedProductsBoyas';
-import FeaturedProductsCamping from './Camping/FeaturedProductsCamping';
 /* BOLSOS TERMICOS  */
+
+/* BOYAS  */
+import FeaturedProductsBoyas from './Boyas/FeaturedProductsBoyas';
+/* BOYAS  */
+
+/* CAMPING  */
+import FeaturedProductsCamping from './Camping/FeaturedProductsCamping';
+/* CAMPING  */
+
+/* CAÑAS  */
+import FeaturedProductsCañas from './Cañas/FeaturedProductsCañas';
+/* CAÑAS  */
+
+import FeaturedProductsCombos from './Combos/FeaturedProductsCombos';
 const HomePage = () => {
 
   return (
@@ -49,9 +61,17 @@ const HomePage = () => {
 
         {/* BOYAS  */}
         <FeaturedProductsBoyas></FeaturedProductsBoyas>
-        <FeaturedProductsCamping></FeaturedProductsCamping>
         {/* BOYAS  */}
+        {/* CAMPING  */}
+        <FeaturedProductsCamping></FeaturedProductsCamping>
+        {/* CAMPING  */}
 
+        {/* CAÑAS  */}
+        <FeaturedProductsCañas></FeaturedProductsCañas>
+        {/* CAÑAS  */}
+        {/* Combos  */}
+        <FeaturedProductsCombos></FeaturedProductsCombos>
+        {/* Combos  */}
         {/* <ProductsSection
           products={products}
           title="Accesorios"

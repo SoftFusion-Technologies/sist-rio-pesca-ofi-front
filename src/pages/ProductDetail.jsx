@@ -125,6 +125,19 @@ import {
 } from '../Images/Guantes/Guantes';
 // Guantes
 
+// Indumentaria
+import {
+  getGroupById as getIndumentaria,
+  loadAllImages as loadAllImagesIndumentaria
+} from '../Images/Indumentaria/Indumentaria';
+// Indumentaria
+
+// Lineas
+import {
+  getGroupById as getLineas,
+  loadAllImages as loadAllImagesLineas
+} from '../Images/Lineas/Lineas';
+// Lineas
 /*
  * Benjamin Orellana - 2026-03-21 - Detalle de producto unificado para catálogos locales.
  * Se adapta estilo ecommerce premium a la identidad visual de Río de Pesca, manteniendo CTA principal a WhatsApp.
@@ -251,6 +264,16 @@ export default function ProductDetail() {
           get: getGuantes,
           load: loadAllImagesGuantes,
           label: 'Guantes'
+        },
+        'Indumentaria': {
+          get: getIndumentaria,
+          load: loadAllImagesIndumentaria,
+          label: 'Indumentaria'
+        },
+        'Lineas': {
+          get: getLineas,
+          load: loadAllImagesLineas,
+          label: 'Lineas'
         }
       };
 

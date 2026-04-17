@@ -37,6 +37,8 @@ import FeaturedProductsCañas from './Cañas/FeaturedProductsCañas';
 import FeaturedProductsCombos from './Combos/FeaturedProductsCombos';
 import FeaturedProductsCuellos from './Cuellos/FeaturedProductsCuellos';
 import FeaturedProductsGaveteros_Cajas from './Gaveteros_Cajas/FeaturedProductsGaveteros_Cajas';
+import FeaturedProductsGorros from './Gorros/FeaturedProductsGorros'
+import FeaturedProductsGuantes from './Guantes/FeaturedProductsGuantes';
 const HomePage = () => {
 
   return (
@@ -80,6 +82,14 @@ const HomePage = () => {
         {/* Gaveteros y cajas  */}
         <FeaturedProductsGaveteros_Cajas></FeaturedProductsGaveteros_Cajas>
         {/* Gaveteros y cajas  */}
+        {/* Gorros  */}
+        <FeaturedProductsGorros></FeaturedProductsGorros>
+        {/* Gorros  */}
+
+        {/* Guantes  */}
+        <FeaturedProductsGuantes></FeaturedProductsGuantes>
+        {/* Guantes  */}
+
         {/* <ProductsSection
           products={products}
           title="Accesorios"

@@ -110,6 +110,21 @@ import {
   loadAllImages as loadAllImagesGaveteros_Cajas
 } from '../Images/Gaveteros_Cajas/Gaveteros_Cajas';
 // Gaveteros y Cajas
+
+// Gorros
+import {
+  getGroupById as getGorros,
+  loadAllImages as loadAllImagesGorros
+} from '../Images/Gorros/Gorros';
+// Gorros
+
+// Guantes
+import {
+  getGroupById as getGuantes,
+  loadAllImages as loadAllImagesGuantes
+} from '../Images/Guantes/Guantes';
+// Guantes
+
 /*
  * Benjamin Orellana - 2026-03-21 - Detalle de producto unificado para catálogos locales.
  * Se adapta estilo ecommerce premium a la identidad visual de Río de Pesca, manteniendo CTA principal a WhatsApp.
@@ -226,6 +241,16 @@ export default function ProductDetail() {
           get: getGaveteros_Cajas,
           load: loadAllImagesGaveteros_Cajas,
           label: 'Gaveteros y Cajas'
+        },
+        'Gorros': {
+          get: getGorros,
+          load: loadAllImagesGorros,
+          label: 'Gorros'
+        },
+        'Guantes': {
+          get: getGuantes,
+          load: loadAllImagesGuantes,
+          label: 'Guantes'
         }
       };
 

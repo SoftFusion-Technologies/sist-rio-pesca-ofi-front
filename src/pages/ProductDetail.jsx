@@ -138,6 +138,35 @@ import {
   loadAllImages as loadAllImagesLineas
 } from '../Images/Lineas/Lineas';
 // Lineas
+
+// Otros
+import {
+  getGroupById as getOtros,
+  loadAllImages as loadAllImagesOtros
+} from '../Images/Otros/Otros';
+// Otros
+
+
+// Reel
+import {
+  getGroupById as getReel,
+  loadAllImages as loadAllImagesReel
+} from '../Images/Reel/Reel';
+// Reel
+
+// ReelFrontales
+import {
+  getGroupById as getReelFrontales,
+  loadAllImages as loadAllImagesReelFrontales
+} from '../Images/Reel_Frontales/ReelFrontales';
+// ReelFrontales
+
+// Riñoneras
+import {
+  getGroupById as getRiñoneras,
+  loadAllImages as loadAllImagesRiñoneras
+} from '../Images/Riñoneras/Riñoneras';
+// Riñoneras
 /*
  * Benjamin Orellana - 2026-03-21 - Detalle de producto unificado para catálogos locales.
  * Se adapta estilo ecommerce premium a la identidad visual de Río de Pesca, manteniendo CTA principal a WhatsApp.
@@ -274,6 +303,21 @@ export default function ProductDetail() {
           get: getLineas,
           load: loadAllImagesLineas,
           label: 'Lineas'
+        },
+        'Otros': {
+          get: getOtros,
+          load: loadAllImagesOtros,
+          label: 'Otros'
+        },
+        'Reel': {
+          get: getReel,
+          load: loadAllImagesReel,
+          label: 'Reel'
+        },
+        'ReelFrontales': {
+          get: getReelFrontales,
+          load: loadAllImagesReelFrontales,
+          label: 'Reel Frontales'
         }
       };
 
